@@ -11,7 +11,12 @@ RUN pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY . /app/
+COPY data /app/data
+COPY utils /app/utils
+COPY data.pickle /app/
+COPY model.p /app/
+COPY remain.py /app/
+COPY main.py /app/
 
 EXPOSE 8765
 
