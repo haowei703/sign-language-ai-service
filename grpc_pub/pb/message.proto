@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package grpc_pub.pb;
+
+option java_multiple_files = true;
+option java_package = "com.shiroha.grpc";
+option java_outer_classname = "MessageExchangeProto";
+
+service MessageExchange {
+  rpc SendMessage (MessageRequest) returns (MessageResponse) {}
+}
+
+message MessageRequest {
+  bytes message = 1;
+}
+
+message MessageResponse {
+  string message = 1;
+}

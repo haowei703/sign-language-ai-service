@@ -1,6 +1,7 @@
 # 第一阶段：设置系统类型和安装 libgl1-mesa-glx
 FROM ubuntu AS system-detector
-RUN apt-get update && apt-get install -y procps
+RUN apt-get update
+RUN apt-get install -y procps
 RUN apt-get install ffmpeg libsm6 libxext6  -y
 RUN apt-get install libgl1
 RUN echo "Linux" > /system-type

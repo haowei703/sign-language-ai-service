@@ -5,7 +5,6 @@ import numpy as np
 model_dict = pickle.load(open('./model.p', 'rb'))
 model = model_dict['model']
 
-
 mp_hands = mp.solutions.hands
 mp_drawing = mp.solutions.drawing_utils
 mp_drawing_styles = mp.solutions.drawing_styles
@@ -16,7 +15,7 @@ labels_dict = {0: '好', 1: '认', 2: '志', 3: '愿', 4: '者', 5: '识', 6: '�
                11: '事', 12: '抽烟', 13: '打电话', 14: '觉得', 15: '先生', 16: '这里', 17: '知道', 18: '走'}
 
 
-async def recognition(frame_rgb):
+def recognition(frame_rgb):
     data_aux = []
     x_ = []
     y_ = []
