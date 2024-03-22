@@ -3,3 +3,4 @@ websockets~=12.0
 opencv-python~=4.9.0.80
 scikit-learn~=1.2.0
 mediapipe~=0.9.0.1
+opencv-python-headless~=4.9.0.80
