@@ -17,6 +17,7 @@ COPY --from=system-detector /system-type /
 COPY requirements.txt .
 RUN pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 RUN pip install --no-cache-dir -r requirements.txt
+RUN pip3 install opencv-python-headless
 
 COPY data /app/data
 COPY utils /app/utils
