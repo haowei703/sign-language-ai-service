@@ -38,7 +38,7 @@ class MessageExchangeServicer(message_pb2_grpc.MessageExchangeServicer):
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=50))
     message_pb2_grpc.add_MessageExchangeServicer_to_server(MessageExchangeServicer(), server)
-    server.add_insecure_port('[::]:10415')
+    server.add_insecure_port('[::]:10123')
     server.start()
 
     try:

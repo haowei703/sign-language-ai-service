@@ -21,6 +21,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 RUN pip3 install opencv-python-headless
 
 COPY data /app/data
+COPY grpc_pub /app/grpc_pub
 COPY utils /app/utils
 COPY data.pickle /app/
 COPY model.p /app/
