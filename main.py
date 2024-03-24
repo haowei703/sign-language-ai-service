@@ -1,4 +1,3 @@
-import struct
 import grpc
 from concurrent import futures
 import time
@@ -15,44 +14,31 @@ ONE_DAY_IN_SECONDS = 60 * 60 * 24
 
 
 class MessageExchangeServicer(message_pb2_grpc.MessageExchangeServicer):
-    def __init__(self):
-        self.cache_list = []
-
-    def list_to_str(self):
-        cache_str = ""
-        for i in self.cache_list:
-            cache_str.join(i)
-        return cache_str
-
     def SendMessage(self, request, context):
-        message = request.message
+        binary_image = request.binary_image
+        width = request.width
+        height = request.height
+        print("Received Binary Image:", binary_image)
+        print("Received Width:", width)
+        print("Received Height:", height)
 
-        array = np.frombuffer(message, dtype=np.uint8)
-        image_size_bytes = array[:8]
-        width, height = struct.unpack('>ii', image_size_bytes)
-
-        array_rgb = convert_YUV_to_RGB(array[8:], width, height)
+        array = np.frombuffer(binary_image, dtype=np.uint8)
+        array_rgb = convert_YUV_to_RGB(array, width, height)
 
         """识别到的手语信息"""
         text = recognition(array_rgb)
         if text is not None:
-            cache_list = distinct_result(self.cache_list, text)
-            if len(cache_list) == 3:
-                response = message_pb2.MessageResponse(message=self.list_to_str())
-                return response
-
-
-def distinct_result(cache_list: list, text: str):
-    index = len(cache_list)
-    if cache_list[index - 1] != text:
-        cache_list.append(text)
-    return cache_list
+            response = message_pb2.MessageResponse(result=text, isEmpty=False)
+            return response
+        else:
+            response = message_pb2.MessageResponse(result="result is None", isEmpty=False)
+            return response
 
 
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=50))
     message_pb2_grpc.add_MessageExchangeServicer_to_server(MessageExchangeServicer(), server)
-    server.add_insecure_port('[::]:8765')
+    server.add_insecure_port('[::]:10415')
     server.start()
 
     try:

@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-from grpc_pub.pb import message_pb2 as pb_dot_message__pb2
+import grpc_pub.pb.message_pb2 as message__pb2
 
 
 class MessageExchangeStub(object):
@@ -15,10 +15,10 @@ class MessageExchangeStub(object):
             channel: A grpc.Channel.
         """
         self.SendMessage = channel.unary_unary(
-            '/grpc_pub.pb.MessageExchange/SendMessage',
-            request_serializer=pb_dot_message__pb2.MessageRequest.SerializeToString,
-            response_deserializer=pb_dot_message__pb2.MessageResponse.FromString,
-        )
+                '/messageexchange.MessageExchange/SendMessage',
+                request_serializer=message__pb2.MessageRequest.SerializeToString,
+                response_deserializer=message__pb2.MessageResponse.FromString,
+                )
 
 
 class MessageExchangeServicer(object):
@@ -33,34 +33,34 @@ class MessageExchangeServicer(object):
 
 def add_MessageExchangeServicer_to_server(servicer, server):
     rpc_method_handlers = {
-        'SendMessage': grpc.unary_unary_rpc_method_handler(
-            servicer.SendMessage,
-            request_deserializer=pb_dot_message__pb2.MessageRequest.FromString,
-            response_serializer=pb_dot_message__pb2.MessageResponse.SerializeToString,
-        ),
+            'SendMessage': grpc.unary_unary_rpc_method_handler(
+                    servicer.SendMessage,
+                    request_deserializer=message__pb2.MessageRequest.FromString,
+                    response_serializer=message__pb2.MessageResponse.SerializeToString,
+            ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-        'grpc_pub.pb.MessageExchange', rpc_method_handlers)
+            'messageexchange.MessageExchange', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
 
 
-# This class is part of an EXPERIMENTAL API.
+ # This class is part of an EXPERIMENTAL API.
 class MessageExchange(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
     def SendMessage(request,
-                    target,
-                    options=(),
-                    channel_credentials=None,
-                    call_credentials=None,
-                    insecure=False,
-                    compression=None,
-                    wait_for_ready=None,
-                    timeout=None,
-                    metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/grpc_pub.pb.MessageExchange/SendMessage',
-                                             pb_dot_message__pb2.MessageRequest.SerializeToString,
-                                             pb_dot_message__pb2.MessageResponse.FromString,
-                                             options, channel_credentials,
-                                             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/messageexchange.MessageExchange/SendMessage',
+            message__pb2.MessageRequest.SerializeToString,
+            message__pb2.MessageResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

@@ -42,3 +42,5 @@ def recognition(frame_rgb):
         print(predicted_character)
 
         return predicted_character
+    """未识别则返回None"""
+    return None
