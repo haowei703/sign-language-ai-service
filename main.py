@@ -18,9 +18,6 @@ class MessageExchangeServicer(message_pb2_grpc.MessageExchangeServicer):
         binary_image = request.binary_image
         width = request.width
         height = request.height
-        print("Received Binary Image:", binary_image)
-        print("Received Width:", width)
-        print("Received Height:", height)
 
         array = np.frombuffer(binary_image, dtype=np.uint8)
         array_rgb = convert_YUV_to_RGB(array, width, height)
@@ -31,7 +28,7 @@ class MessageExchangeServicer(message_pb2_grpc.MessageExchangeServicer):
             response = message_pb2.MessageResponse(result=text, isEmpty=False)
             return response
         else:
-            response = message_pb2.MessageResponse(result="result is None", isEmpty=False)
+            response = message_pb2.MessageResponse(result="result is None", isEmpty=True)
             return response
 
 
