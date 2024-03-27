@@ -1,0 +1,12 @@
+{
+    "name": "python-dev-container",
+    "dockerFile": "Dockerfile",
+    "service": "app",
+    "workspaceFolder": "/app",
+    "extensions": [
+        "ms-python.python"
+    ],
+    "settings": {
+        "terminal.integrated.shell.linux": "/bin/bash"
+    }
+}
