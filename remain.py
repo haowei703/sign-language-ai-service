@@ -39,7 +39,6 @@ def recognition(frame_rgb):
         prediction = model.predict([np.asarray(data_aux)])
 
         predicted_character = labels_dict[int(prediction[0])]
-        print(predicted_character)
 
         return predicted_character
     """未识别则返回None"""
