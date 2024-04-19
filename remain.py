@@ -11,8 +11,7 @@ mp_drawing_styles = mp.solutions.drawing_styles
 
 hands = mp_hands.Hands(static_image_mode=True, min_detection_confidence=0.3)
 
-labels_dict = {0: '好', 1: '认', 2: '志', 3: '愿', 4: '者', 5: '识', 6: '次', 7: '6', 8: '5', 9: '爸爸', 10: '妈妈',
-               11: '事', 12: '抽烟', 13: '打电话', 14: '觉得', 15: '先生', 16: '这里', 17: '知道', 18: '走'}
+labels_dict = {0: '早上', 1: '好', 2: '你', 3: '认识'}
 
 
 def recognition(frame_rgb):
