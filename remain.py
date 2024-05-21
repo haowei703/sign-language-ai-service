@@ -1,3 +1,4 @@
+import logging
 import pickle
 import mediapipe as mp
 import numpy as np
@@ -35,9 +36,13 @@ def recognition(frame_rgb):
                 data_aux.append(x - min(x_))
                 data_aux.append(y - min(y_))
 
-        prediction = model.predict([np.asarray(data_aux)])
-
-        predicted_character = labels_dict[int(prediction[0])]
+        try:
+            prediction = model.predict([np.asarray(data_aux)])
+            predicted_character = labels_dict[int(prediction[0])]
+        except Exception as e:
+            logging.error(f"Prediction error: {str(e)}", exc_info=True)
+            print("An error occurred during prediction. Please check the logs for more details.")
+            return None
 
         return predicted_character
     """未识别则返回None"""
