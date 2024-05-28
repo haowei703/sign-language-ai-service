@@ -39,9 +39,11 @@ def recognition(frame_rgb):
         try:
             prediction = model.predict([np.asarray(data_aux)])
             predicted_character = labels_dict[int(prediction[0])]
-        except Exception as e:
+        except ValueError as e:
             logging.error(f"Prediction error: {str(e)}", exc_info=True)
             print("An error occurred during prediction. Please check the logs for more details.")
+            return None
+        except Exception as e:
             return None
 
         return predicted_character

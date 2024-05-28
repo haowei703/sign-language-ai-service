@@ -5,7 +5,7 @@ import time
 import numpy as np
 
 from remain import recognition
-from utils.convert_YUV_to_RGB import convert_YUV_to_RGB
+from utils.convert_yuv_2_rgb import convert_YUV_to_RGB
 
 from grpc_pub.pb import message_pb2_grpc
 from grpc_pub.pb import message_pb2
