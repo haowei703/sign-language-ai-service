@@ -1,3 +1,5 @@
+import logging
+
 import grpc
 from concurrent import futures
 import time
@@ -25,6 +27,7 @@ class MessageExchangeServicer(message_pb2_grpc.MessageExchangeServicer):
         """识别到的手语信息"""
         text = recognition(array_rgb)
         if text is not None:
+            logging.debug("识别结果" + text)
             response = message_pb2.MessageResponse(result=text, isEmpty=False)
             return response
         else:

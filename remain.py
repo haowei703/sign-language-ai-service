@@ -1,5 +1,7 @@
 import logging
 import pickle
+
+import cv2
 import mediapipe as mp
 import numpy as np
 
@@ -49,3 +51,35 @@ def recognition(frame_rgb):
         return predicted_character
     """未识别则返回None"""
     return None
+
+
+"""测试"""
+if __name__ == '__main__':
+    cap = cv2.VideoCapture(0)
+
+    if not cap.isOpened():
+        print("Error: Could not open camera.")
+        exit()
+
+    while True:
+        # 读取帧
+        ret, frame = cap.read()
+        if not ret:
+            print("Error: Failed to capture image.")
+            break
+
+        # 将BGR帧转换为RGB格式
+        rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        text = recognition(rgb_frame)
+        if text is not None:
+            print(text)
+
+        # 显示帧
+        cv2.imshow('RGB Frame', frame)
+
+        # 按 'q' 键退出循环
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
+
+    cap.release()
+    cv2.destroyAllWindows()
